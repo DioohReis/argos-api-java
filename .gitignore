@@ -1,0 +1,16 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+### Segredos: nunca vao para o GitHub ###
+.env
+*.env
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
