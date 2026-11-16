@@ -3,6 +3,7 @@ package br.com.fiap.argos.handler;
 import br.com.fiap.argos.dto.CampoErroDto;
 import br.com.fiap.argos.dto.ErroResponseDto;
 import br.com.fiap.argos.exception.BancoDadosException;
+import br.com.fiap.argos.exception.DadosInvalidosException;
 import br.com.fiap.argos.exception.RecursoNaoEncontradoException;
 import br.com.fiap.argos.exception.RegraNegocioException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,6 +50,12 @@ public class GlobalExceptionHandler {
                                                             HttpServletRequest req) {
         return montar(HttpStatus.BAD_REQUEST, "Dados inválidos",
                 "O valor informado em '" + e.getName() + "' é inválido.", req, new ArrayList<>());
+    }
+
+    // 400: os campos estao no formato certo, mas nao fazem sentido juntos (ex.: colheita antes do plantio)
+    @ExceptionHandler(DadosInvalidosException.class)
+    public ResponseEntity<ErroResponseDto> dadosInvalidos(DadosInvalidosException e, HttpServletRequest req) {
+        return montar(HttpStatus.BAD_REQUEST, "Dados inválidos", e.getMessage(), req, new ArrayList<>());
     }
 
     // 404: o id pedido nao existe no banco
